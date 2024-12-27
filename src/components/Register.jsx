@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { AlertCircle, CheckCircle2, Loader } from "lucide-react";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -9,16 +9,42 @@ const Register = () => {
   const [sem, setSem] = useState("");
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!name.trim() || !usn.trim() || !sec.trim() || !branch.trim() || !sem.trim()) {
       setError("All fields are required!");
       setSubmitted(false);
     } else {
       setError("");
-      console.log("Registered Data:", { name, usn, sec, branch, sem });
-      setSubmitted(true);
+      setLoading(true); 
+      try {
+        const response = await fetch("http://localhost:3000/api/auth/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, usn, sec, branch, sem }),
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          console.log("Registration Successful:", result);
+          setSubmitted(true);
+        } else {
+          const errorData = await response.json();
+          console.error("Error:", errorData);
+          setError(errorData.message || "Registration failed. Please try again.");
+          setSubmitted(false);
+        }
+      } catch (err) {
+        console.error("Network Error:", err);
+        setError("Network error occurred. Please try again later.");
+        setSubmitted(false);
+      } finally {
+        setLoading(false); 
+      }
     }
   };
 
@@ -128,9 +154,19 @@ const Register = () => {
 
             <button
               type="submit"
-              className="w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200"
+              className={`w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white ${
+                loading ? "bg-gray-400 cursor-not-allowed" : "bg-purple-600 hover:bg-purple-700"
+              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 transition-colors duration-200`}
+              disabled={loading}
             >
-              Register Now
+              {loading ? (
+                <div className="flex justify-center items-center space-x-2">
+                  <Loader className="animate-spin" size={16} />
+                  <span>Loading...</span>
+                </div>
+              ) : (
+                "Register Now"
+              )}
             </button>
           </form>
         </div>
