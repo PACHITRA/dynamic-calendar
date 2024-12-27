@@ -75,7 +75,7 @@ const Register = () => {
               >
                 <option value="">Select Branch</option>
                 {branches.map((b) => (
-                  <option key={b} value={b}>{b}</option>
+                  <option key={b} value={b} className="text-black">{b}</option>
                 ))}
               </select>
             </div>
@@ -87,11 +87,11 @@ const Register = () => {
                   id="sec"
                   value={sec}
                   onChange={(e) => handleChange(e, setSec)}
-                  className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                  className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-black"
                 >
                   <option value="">Select</option>
                   {sections.map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                    <option key={s} value={s} className="text-black">{s}</option>
                   ))}
                 </select>
               </div>
@@ -102,11 +102,11 @@ const Register = () => {
                   id="sem"
                   value={sem}
                   onChange={(e) => handleChange(e, setSem)}
-                  className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors"
+                  className="mt-1 block w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-colors text-black"
                 >
                   <option value="">Select</option>
                   {semesters.map((s) => (
-                    <option key={s} value={s}>{s}</option>
+                    <option key={s} value={s} className="text-black">{s}</option>
                   ))}
                 </select>
               </div>
