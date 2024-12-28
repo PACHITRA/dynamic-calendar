@@ -17,7 +17,7 @@ const Register = () => {
       try {
         const response = await fetch("http://localhost:3000/student/login");
         if (response.ok) {
-          const data = await response
+          const data = await response.json();
           setLoginUrl(data.url);
         } else {
           console.error("Failed to fetch login URL");
@@ -48,11 +48,11 @@ const Register = () => {
         });
 
         if (response.ok) {
-          const result = await response
+          const result = await response.json();
           console.log("Registration Successful:", result);
           setSubmitted(true);
         } else {
-          const errorData = await response
+          const errorData = await response.json();
           console.error("Error:", errorData);
           setError(errorData.message || "Registration failed. Please try again.");
           setSubmitted(false);

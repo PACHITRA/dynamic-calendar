@@ -15,7 +15,7 @@ const Login = () => {
       try {
         const response = await fetch("http://localhost:3000/student/register");
         if (response.ok) {
-          const data = await response
+          const data = await response.json();
           setRegisterUrl(data.url);
         } else {
           console.error("Failed to fetch register URL");
@@ -48,7 +48,7 @@ const Login = () => {
 
     try {
       // Simulating an API call
-      const response = await fetch("http://localhost:3000/api/auth/login", {
+      const response = await fetch("http://localhost:3000/student/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ const Login = () => {
         throw new Error("Failed to login!");
       }
 
-      const data = await response
+      const data = await response.json();
       console.log("Server Response:", data);
       setSubmitted(true);
     } catch (error) {
