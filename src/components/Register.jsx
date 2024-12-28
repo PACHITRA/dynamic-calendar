@@ -197,16 +197,17 @@ const Register = () => {
           </form>
 
           {/* Login Button */}
-          {loginUrl && (
-            <div className="mt-6 text-center">
-              <a
-                href={loginUrl}
-                className="text-purple-600 hover:text-purple-800 text-sm font-medium"
-              >
-                Already registered? Please login
-              </a>
-            </div>
-          )}
+          <div className="mt-6 text-center">
+  <p className="text-sm text-gray-700">
+    Already registered?{" "}
+    <a
+      href={loginUrl || "#"} // Use '#' as fallback if loginUrl is not available
+      className="text-purple-600 hover:text-purple-700 font-medium"
+    >
+      Please login
+    </a>
+  </p>
+</div>
         </div>
       </div>
     </div>
