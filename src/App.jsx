@@ -1,19 +1,20 @@
 /* eslint-disable no-unused-vars */
-import Login from "./components/Login"
-import CRDashboard from "./components/CRDashboard"
-import Register from "./components/Register"
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Login from './components/Login';
+import CRDashboard from './components/CRDashboard';
+import Register from './components/Register';
 
 const App = () => {
   return (
-    <div className="sx-react-calendar-wrapper">
-      <CRDashboard />
-    </div>
-    /*<div>
-      <Login />
-      
-    </div>*/
-  
-  )
-}
+    <Router>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<CRDashboard />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
+    </Router>
+  );
+};
 
-export default App
+export default App;

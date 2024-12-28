@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AlertCircle, CheckCircle2, Loader } from "lucide-react";
 
 const Register = () => {
@@ -9,7 +9,27 @@ const Register = () => {
   const [sem, setSem] = useState("");
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
+  const [loginUrl, setLoginUrl] = useState(""); // State for login URL
+
+  useEffect(() => {
+    // Fetch login URL from backend
+    const fetchLoginUrl = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/student/login");
+        if (response.ok) {
+          const data = await response.json();
+          setLoginUrl(data.url);
+        } else {
+          console.error("Failed to fetch login URL");
+        }
+      } catch (err) {
+        console.error("Network Error:", err);
+      }
+    };
+
+    fetchLoginUrl();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +38,7 @@ const Register = () => {
       setSubmitted(false);
     } else {
       setError("");
-      setLoading(true); 
+      setLoading(true);
       try {
         const response = await fetch("http://localhost:3000/api/auth/register", {
           method: "POST",
@@ -43,7 +63,7 @@ const Register = () => {
         setError("Network error occurred. Please try again later.");
         setSubmitted(false);
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     }
   };
@@ -65,8 +85,9 @@ const Register = () => {
             <h1 className="text-3xl font-bold text-gray-900">Student Registration</h1>
             <p className="mt-2 text-sm text-gray-600">Please fill in your details below</p>
           </div>
-          
+
           <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Full Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">Full Name</label>
               <input
@@ -79,6 +100,7 @@ const Register = () => {
               />
             </div>
 
+            {/* USN */}
             <div>
               <label htmlFor="usn" className="block text-sm font-medium text-gray-700">USN</label>
               <input
@@ -91,6 +113,7 @@ const Register = () => {
               />
             </div>
 
+            {/* Branch */}
             <div>
               <label htmlFor="branch" className="block text-sm font-medium text-gray-700">Branch</label>
               <select
@@ -106,6 +129,7 @@ const Register = () => {
               </select>
             </div>
 
+            {/* Section and Semester */}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="sec" className="block text-sm font-medium text-gray-700">Section</label>
@@ -138,13 +162,14 @@ const Register = () => {
               </div>
             </div>
 
+            {/* Error and Success Messages */}
             {error && (
               <div className="flex items-center space-x-2 text-red-600">
                 <AlertCircle size={16} />
                 <p className="text-sm font-medium">{error}</p>
               </div>
             )}
-            
+
             {submitted && !error && (
               <div className="flex items-center space-x-2 text-green-600">
                 <CheckCircle2 size={16} />
@@ -152,6 +177,7 @@ const Register = () => {
               </div>
             )}
 
+            {/* Submit Button */}
             <button
               type="submit"
               className={`w-full py-3 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white ${
@@ -169,6 +195,18 @@ const Register = () => {
               )}
             </button>
           </form>
+
+          {/* Login Button */}
+          {loginUrl && (
+            <div className="mt-6 text-center">
+              <a
+                href={loginUrl}
+                className="text-purple-600 hover:text-purple-800 text-sm font-medium"
+              >
+                Already registered? Please login
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

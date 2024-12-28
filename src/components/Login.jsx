@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Login = () => {
   const [usn, setUsn] = useState("");
@@ -7,6 +7,26 @@ const Login = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false); // Loading state
   const [submitted, setSubmitted] = useState(false);
+  const [registerUrl, setRegisterUrl] = useState(""); // State for registration URL
+
+  useEffect(() => {
+    // Fetch registration URL from backend
+    const fetchRegisterUrl = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/student/register");
+        if (response.ok) {
+          const data = await response.json();
+          setRegisterUrl(data.url);
+        } else {
+          console.error("Failed to fetch register URL");
+        }
+      } catch (err) {
+        console.error("Network Error:", err);
+      }
+    };
+
+    fetchRegisterUrl();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +48,7 @@ const Login = () => {
 
     try {
       // Simulating an API call
-      const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+      const response = await fetch("http://localhost:3000/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -154,6 +174,18 @@ const Login = () => {
               </button>
             </div>
           </form>
+
+          {/* Register Button */}
+          {registerUrl && (
+            <div className="mt-6 text-center">
+              <a
+                href={registerUrl}
+                className="text-blue-600 hover:text-blue-800 text-sm font-medium"
+              >
+                Not registered? Register
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>
