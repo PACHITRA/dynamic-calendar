@@ -8,24 +8,35 @@ const Login = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const [submitted, setSubmitted] = useState(false);
   const [registerUrl, setRegisterUrl] = useState(""); // State for registration URL
+  const [adminUrl, setAdminUrl] = useState(""); // State for admin login URL
 
   useEffect(() => {
-    // Fetch registration URL from backend
-    const fetchRegisterUrl = async () => {
+    // Fetch registration URL and admin login URL from backend
+    const fetchUrls = async () => {
       try {
-        const response = await fetch("http://localhost:3000/student/register");
-        if (response.ok) {
-          const data = await response.json();
-          setRegisterUrl(data.url);
+        // Fetch the registration URL
+        const registerResponse = await fetch("http://localhost:3000/student/register");
+        if (registerResponse.ok) {
+          const registerData = await registerResponse.json();
+          setRegisterUrl(registerData.url);
         } else {
           console.error("Failed to fetch register URL");
+        }
+
+        // Fetch the admin login URL
+        const adminResponse = await fetch("http://localhost:3000/admin/login");
+        if (adminResponse.ok) {
+          const adminData = await adminResponse.json();
+          setAdminUrl(adminData.url);
+        } else {
+          console.error("Failed to fetch admin login URL");
         }
       } catch (err) {
         console.error("Network Error:", err);
       }
     };
 
-    fetchRegisterUrl();
+    fetchUrls();
   }, []);
 
   const handleSubmit = async (e) => {
@@ -177,16 +188,25 @@ const Login = () => {
 
           {/* Register Button */}
           <div className="mt-6 text-center">
-  <p className="text-sm text-gray-700">
-    Not registered?{" "}
-    <a
-      href={registerUrl || "#"} // Use '#' as fallback if registerUrl is not available
-      className="text-purple-600 hover:text-purple-700 font-medium"
-    >
-      Please register
-    </a>
-  </p>
-</div>
+            <p className="text-sm text-gray-700">
+              Not registered?{" "}
+              <a
+                href={registerUrl || "#"} // Use '#' as fallback if registerUrl is not available
+                className="text-purple-600 hover:text-purple-700 font-medium"
+              >
+                Please register
+              </a>
+            </p>
+            <p className="text-sm text-gray-700 mt-4">
+              Admin?{" "}
+              <a
+                href={adminUrl || "/admin/login"} // Use adminUrl if available, else fallback to default URL
+                className="text-purple-600 hover:text-purple-700 font-medium"
+              >
+                Admin Login
+              </a>
+            </p>
+          </div>
         </div>
       </div>
     </div>

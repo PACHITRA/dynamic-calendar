@@ -15,6 +15,11 @@ function App() {
   const calendarControls = createCalendarControlsPlugin(); // Create the controls plugin
 
   const calendar = useCalendarApp({
+    isDark: true,
+    weekOptions: {
+      gridHeight: 300,
+      nDays: 6,
+    },
     defaultView: viewWeek.name,
     views: [viewDay, viewWeek, viewMonthGrid, viewMonthAgenda],
     plugins: [
@@ -23,22 +28,61 @@ function App() {
       calendarControls, // Include controls plugin
     ],
     dayBoundaries: {
-      start: '09:00',
-      end: '16:30', // Set day boundaries here
+      start: '08:55',
+      end: '18:00', // Set day boundaries here
     },
     events: [
       { id: '1', title: 'OS', start: '2024-12-28 09:00', end: '2024-12-28 09:55' },
       { id: '2', title: 'CNC', start: '2024-12-28 10:00', end: '2024-12-28 10:55' },
     ],
+    backgroundEvents: [
+ 
+      // full day event
+      {
+        title: 'Out of office',
+        start: '2024-09-03',
+        end: '2024-09-03',
+        style: {
+          // create tilted 5px thick gray lines
+          backgroundImage: 'repeating-linear-gradient(45deg, #ccc, #ccc 5px, transparent 5px, transparent 10px)',
+          opacity: 0.5,
+        },
+      },
+   
+      // timed event
+      {
+        title: 'Out of office',
+        start: '2024-09-02 00:00',
+        end: '2024-09-02 02:00',
+        style: {
+          background: 'linear-gradient(45deg, #f91c45, #1c7df9)',
+          opacity: 0.5,
+        },
+      },
+   
+      // multi-day event
+      {
+        title: 'Holiday',
+        start: '2024-09-05',
+        end: '2024-09-07',
+        style: {
+          backgroundImage: 'repeating-linear-gradient(45deg, #1cf9b0, #1cf9b0 5px, transparent 5px, transparent 10px)',
+          opacity: 0.5,
+        },
+      }
+    ],
   });
 
   // Optional: Programmatically set view and date
   calendarControls.setView('week');
-  calendarControls.setDate('2024-12-28');
+  
 
   return (
-    <div>
-      <ScheduleXCalendar calendarApp={calendar} />
+    <div className="flex items-center justify-center w-screen h-screen bg-gradient-to-r from-blue-400 to-purple-500">
+       
+        
+        <ScheduleXCalendar calendarApp={calendar} />
+      
     </div>
   );
 }
