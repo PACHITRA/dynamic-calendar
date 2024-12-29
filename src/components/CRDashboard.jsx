@@ -12,7 +12,7 @@ import {
 import '@schedule-x/theme-default/dist/index.css';
 
 function App() {
-  const calendarControls = createCalendarControlsPlugin(); // Create the controls plugin
+  const calendarControls = createCalendarControlsPlugin();
 
   const calendar = useCalendarApp({
     isDark: true,
@@ -25,11 +25,11 @@ function App() {
     plugins: [
       createEventModalPlugin(),
       createDragAndDropPlugin(),
-      calendarControls, // Include controls plugin
+      calendarControls, 
     ],
     dayBoundaries: {
       start: '08:55',
-      end: '18:00', // Set day boundaries here
+      end: '18:00', 
     },
     events: [
       { id: '1', title: 'OS', start: '2024-12-28 09:00', end: '2024-12-28 09:55' },
@@ -37,19 +37,19 @@ function App() {
     ],
     backgroundEvents: [
  
-      // full day event
+      
       {
         title: 'Out of office',
         start: '2024-09-03',
         end: '2024-09-03',
         style: {
-          // create tilted 5px thick gray lines
+          
           backgroundImage: 'repeating-linear-gradient(45deg, #ccc, #ccc 5px, transparent 5px, transparent 10px)',
           opacity: 0.5,
         },
       },
    
-      // timed event
+    
       {
         title: 'Out of office',
         start: '2024-09-02 00:00',
@@ -60,7 +60,6 @@ function App() {
         },
       },
    
-      // multi-day event
       {
         title: 'Holiday',
         start: '2024-09-05',
@@ -72,8 +71,6 @@ function App() {
       }
     ],
   });
-
-  // Optional: Programmatically set view and date
   calendarControls.setView('week');
   
 

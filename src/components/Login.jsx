@@ -3,18 +3,18 @@ import { useState, useEffect } from "react";
 const Login = () => {
   const [usn, setUsn] = useState("");
   const [password, setPassword] = useState("");
-  const [isCr, setIsCr] = useState(false); // State for CR checkbox
+  const [isCr, setIsCr] = useState(false); 
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
   const [submitted, setSubmitted] = useState(false);
-  const [registerUrl, setRegisterUrl] = useState(""); // State for registration URL
-  const [adminUrl, setAdminUrl] = useState(""); // State for admin login URL
+  const [registerUrl, setRegisterUrl] = useState(""); 
+  const [adminUrl, setAdminUrl] = useState(""); 
 
   useEffect(() => {
-    // Fetch registration URL and admin login URL from backend
+    
     const fetchUrls = async () => {
       try {
-        // Fetch the registration URL
+      
         const registerResponse = await fetch("http://localhost:3000/student/register");
         if (registerResponse.ok) {
           const registerData = await registerResponse.json();
@@ -23,7 +23,7 @@ const Login = () => {
           console.error("Failed to fetch register URL");
         }
 
-        // Fetch the admin login URL
+        
         const adminResponse = await fetch("http://localhost:3000/admin/login");
         if (adminResponse.ok) {
           const adminData = await adminResponse.json();
@@ -42,7 +42,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
+    
     if (!usn.trim()) {
       setError("USN is required!");
       setSubmitted(false);
@@ -55,10 +55,10 @@ const Login = () => {
     }
 
     setError("");
-    setLoading(true); // Start loading
+    setLoading(true); 
 
     try {
-      // Simulating an API call
+      
       const response = await fetch("http://localhost:3000/student/login", {
         method: "POST",
         headers: {
@@ -82,23 +82,23 @@ const Login = () => {
       console.error("Error during login:", error);
       setError("Failed to login. Please try again!");
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false);
     }
   };
 
   const handleUsnChange = (e) => {
     setUsn(e.target.value);
-    setSubmitted(false); // Reset submitted state if user starts typing again
+    setSubmitted(false); 
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    setSubmitted(false); // Reset submitted state if user starts typing again
+    setSubmitted(false); 
   };
 
   const handleCrChange = (e) => {
-    setIsCr(e.target.checked); // Toggle CR state based on checkbox
-    setSubmitted(false); // Reset submitted state when toggling
+    setIsCr(e.target.checked); 
+    setSubmitted(false); 
   };
 
   return (
@@ -142,7 +142,7 @@ const Login = () => {
               </label>
             </div>
 
-            {/* Conditional rendering for password input */}
+           
             {isCr && (
               <div>
                 <label
@@ -174,7 +174,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                disabled={loading} // Disable button during loading
+                disabled={loading} 
                 className={`w-full py-3 ${
                   loading
                     ? "bg-gray-400 cursor-not-allowed"
@@ -185,13 +185,11 @@ const Login = () => {
               </button>
             </div>
           </form>
-
-          {/* Register Button */}
           <div className="mt-6 text-center">
             <p className="text-sm text-gray-700">
               Not registered?{" "}
               <a
-                href={registerUrl || "#"} // Use '#' as fallback if registerUrl is not available
+                href={registerUrl || "#"} 
                 className="text-purple-600 hover:text-purple-700 font-medium"
               >
                 Please register
@@ -200,7 +198,7 @@ const Login = () => {
             <p className="text-sm text-gray-700 mt-4">
               Admin?{" "}
               <a
-                href={adminUrl || "/admin/login"} // Use adminUrl if available, else fallback to default URL
+                href={adminUrl || "/admin/login"} 
                 className="text-purple-600 hover:text-purple-700 font-medium"
               >
                 Admin Login

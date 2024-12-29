@@ -1,8 +1,7 @@
 import { useState } from 'react';
 
 function EventManager() {
-  // State for events
-  const [events, setEvents] = useState([]);
+ const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
     id: '',
     title: '',
@@ -10,10 +9,9 @@ function EventManager() {
     time: ''
   });
 
-  // Weekday options for the form
-  const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  // Handle input changes
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -22,24 +20,24 @@ function EventManager() {
     }));
   };
 
-  // Handle create event
+  
   const handleCreateEvent = () => {
     if (!formData.title || !formData.weekday || !formData.time) {
       alert("Please fill all fields.");
       return;
     }
     const newEvent = {
-      id: new Date().getTime().toString(), // Unique ID based on timestamp
+      id: new Date().getTime().toString(), 
       title: formData.title,
       weekday: formData.weekday,
       time: formData.time,
     };
 
     setEvents((prevEvents) => [...prevEvents, newEvent]);
-    setFormData({ id: '', title: '', weekday: '', time: '' }); // Clear form
+    setFormData({ id: '', title: '', weekday: '', time: '' }); 
   };
 
-  // Handle update event
+  
   const handleUpdateEvent = () => {
     if (!formData.title || !formData.weekday || !formData.time) {
       alert("Please fill all fields.");
@@ -52,16 +50,16 @@ function EventManager() {
           : event
       )
     );
-    setFormData({ id: '', title: '', weekday: '', time: '' }); // Clear form
+    setFormData({ id: '', title: '', weekday: '', time: '' }); 
   };
 
-  // Handle delete event
+  
   const handleDeleteEvent = (id) => {
     const updatedEvents = events.filter((event) => event.id !== id);
     setEvents(updatedEvents);
   };
 
-  // Handle event click to populate the form with existing data
+ 
   const handleEventClick = (event) => {
     setFormData({
       id: event.id,
@@ -71,7 +69,7 @@ function EventManager() {
     });
   };
 
-  // Group events by weekdays
+ 
   const groupEventsByWeekday = (events) => {
     const groupedEvents = {
       Monday: [],
@@ -91,9 +89,9 @@ function EventManager() {
 
   const groupedEvents = groupEventsByWeekday(events);
 
-  // Handle cancel (discard changes)
+  
   const handleCancel = () => {
-    setFormData({ id: '', title: '', weekday: '', time: '' }); // Reset the form
+    setFormData({ id: '', title: '', weekday: '', time: '' }); 
   };
 
   return (
@@ -132,7 +130,7 @@ function EventManager() {
           className="mb-2 p-2 w-full border"
         />
 
-        {/* Create, Update, or Cancel Event */}
+        
         <div className="flex space-x-2">
           {formData.id ? (
             <>
@@ -160,7 +158,7 @@ function EventManager() {
         </div>
       </div>
 
-      {/* Event List Table */}
+      
       <div>
         <h3 className="font-semibold mb-2">Event List</h3>
         {events.length === 0 ? (

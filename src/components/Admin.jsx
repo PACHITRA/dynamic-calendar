@@ -4,13 +4,13 @@ const AdminLogin = () => {
   const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false); 
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validation
+    
     if (!adminId.trim()) {
       setError("Admin ID is required!");
       setSubmitted(false);
@@ -23,10 +23,8 @@ const AdminLogin = () => {
     }
 
     setError("");
-    setLoading(true); // Start loading
-
+    setLoading(true); 
     try {
-      // Simulating an API call
       const response = await fetch("http://localhost:3000/admin/login", {
         method: "POST",
         headers: {
@@ -49,18 +47,18 @@ const AdminLogin = () => {
       console.error("Error during login:", error);
       setError("Failed to login. Please try again!");
     } finally {
-      setLoading(false); // Stop loading
+      setLoading(false); 
     }
   };
 
   const handleAdminIdChange = (e) => {
     setAdminId(e.target.value);
-    setSubmitted(false); // Reset submitted state if user starts typing again
+    setSubmitted(false); 
   };
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    setSubmitted(false); // Reset submitted state if user starts typing again
+    setSubmitted(false); 
   };
 
   return (
@@ -117,7 +115,7 @@ const AdminLogin = () => {
             <div>
               <button
                 type="submit"
-                disabled={loading} // Disable button during loading
+                disabled={loading}
                 className={`w-full py-3 ${
                   loading
                     ? "bg-gray-400 cursor-not-allowed"
