@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function EventManager() {
+function DefaultTimetableManager() {
   const [events, setEvents] = useState([]);
   const [formData, setFormData] = useState({
     id: '',
@@ -91,7 +91,7 @@ function EventManager() {
     <div className="min-h-screen w-screen bg-gradient-to-r from-blue-500 to-purple-600 text-white p-8">
       <div className="max-w-4xl mx-auto bg-white text-gray-800 rounded-lg shadow-lg p-6">
         <h2 className="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">
-          Event Manager
+          Default Timetable Manager
         </h2>
 
         {/* Event Form */}
@@ -210,4 +210,4 @@ function EventManager() {
   );
 }
 
-export default EventManager;
+export default DefaultTimetableManager;
