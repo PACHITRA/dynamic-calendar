@@ -5,6 +5,7 @@ import Login from './components/Login';
 import CRDashboard from './components/CRDashboard';
 import Register from './components/Register';
 import Admin from './components/Admin';
+import CalendarViewer from './components/CalenderViewer';
 
 import DefaultTimetableManager from './components/DefaultTimetableManager';
 
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<Admin />} />
         <Route path="/dtt-manager" element={<DefaultTimetableManager />} />
+        <Route path="/calendar-viewer" element={<CalendarViewer />} />
       </Routes>
     </Router>
   );
