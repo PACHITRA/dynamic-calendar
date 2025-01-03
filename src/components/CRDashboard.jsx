@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import  { useState, useMemo } from "react";
 import { useCalendarApp, ScheduleXCalendar } from "@schedule-x/react";
 import { createCalendarControlsPlugin } from "@schedule-x/calendar-controls";
 import { createEventModalPlugin } from "@schedule-x/event-modal";
